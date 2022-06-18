@@ -20,10 +20,10 @@ sys.path.append(os.path.abspath(os.path.join(__dir__, '../')))
 import cv2
 import numpy as np
 
-from utils import logger
-from utils import config
-from utils.predictor import Predictor
-from utils.get_image_list import get_image_list
+from paddleclas.deploy.utils import logger
+from paddleclas.deploy.utils import config
+from paddleclas.deploy.utils.predictor import Predictor
+from paddleclas.deploy.utils.get_image_list import get_image_list
 from python.preprocess import create_operators
 from python.postprocess import build_postprocess
 
