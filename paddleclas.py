@@ -349,7 +349,7 @@ def print_info():
     table_width = len(str(imn_table).split("\n")[0])
     pulc_table.add_row([
         textwrap.fill(
-            "  ".join(PULC_MODELS), width=total_width).center(table_width - 4)
+            "  ".join(PULC_MODELS), width=50).center(table_width - 4)
     ])
 
     print("{}".format("-" * table_width))
@@ -485,8 +485,21 @@ class PaddleClas(object):
         """
         all_imn_model_names = get_imn_model_names()
         all_pulc_model_names = PULC_MODELS
-
-        if model_name:
+        
+        if model_name and inference_model_dir:
+            model_file_path = os.path.join(inference_model_dir,
+                                           "inference.pdmodel")
+            params_file_path = os.path.join(inference_model_dir,
+                                            "inference.pdiparams")
+            if not os.path.isfile(model_file_path) or not os.path.isfile(
+                    params_file_path):
+                err = f"There is no model file or params file in this directory: {inference_model_dir}"
+                raise InputModelError(err)
+            if model_name in all_imn_model_names:
+                return "imn", inference_model_dir
+            elif model_name in all_pulc_model_names:
+                return "pulc", inference_model_dir
+        elif model_name:
             if model_name in all_imn_model_names:
                 inference_model_dir = check_model_file("imn", model_name)
                 return "imn", inference_model_dir

@@ -39,7 +39,7 @@ def init_logger(name='ppcls', log_file=None, log_level=logging.INFO):
         logging.Logger: The expected logger.
     """
     global _logger
-    assert _logger is None, "logger should not be initialized twice or more."
+    #assert _logger is None, "logger should not be initialized twice or more."
     _logger = logging.getLogger(name)
 
     formatter = logging.Formatter(
